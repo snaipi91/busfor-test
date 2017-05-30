@@ -1,14 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import data from './data';
+
+import Flights from './src/Flights';
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>{data[0].cityFrom}</Text>
-      </View>
+        <ScrollView>
+          <View style={styles.container}>
+            <Flights data={data}/>
+          </View>
+        </ScrollView>
     );
   }
 }
