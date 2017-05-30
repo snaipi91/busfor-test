@@ -1,14 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
+import _ from 'lodash';
+
 export default class Flights extends React.Component {
     render() {
         let flights,
             timeFrom,
-            timeTo;
+            timeTo,
+            data = this.props.data;
 
-        if(this.props.data) {
-            flights = this.props.data.map((item, index) => {
+        if(data) {
+            // sort
+            data = _.sortBy(this.props.data, (item) => {
+                return item.price;
+            });
+
+            flights = data.map((item, index) => {
                 timeFrom = new Date(item.dateTimeFrom);
                 timeTo = new Date(item.dateTimeTo);
 

@@ -2,6 +2,13 @@ export default [
     {
         "cityFrom": "Воронеж",
         "cityTo": "Москва",
+        "dateTimeFrom": 3493114000,
+        "dateTimeTo": 2496145600,
+        "price": 1200
+    },
+    {
+        "cityFrom": "Воронеж",
+        "cityTo": "Москва",
         "dateTimeFrom": 1496120400,
         "dateTimeTo": 1496152800,
         "price": 500
