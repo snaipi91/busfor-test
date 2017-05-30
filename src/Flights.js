@@ -11,8 +11,16 @@ export default class Flights extends React.Component {
             data = this.props.data;
 
         if(data) {
-            // sort
-            data = _.sortBy(this.props.data, ['price', 'dateTimeFrom']);
+            console.log(this.props.sort);
+
+            // sort change state
+            if(this.props.sort.time == false) {
+                data =  _.sortBy(this.props.data, ['price']);
+            } else if (this.props.sort.price == false) {
+                data =  _.sortBy(this.props.data, ['dateTimeFrom']);
+            } else {
+                data = _.sortBy(this.props.data, ['price', 'dateTimeFrom']);
+            }
 
             flights = data.map((item, index) => {
                 timeFrom = new Date(item.dateTimeFrom);

@@ -8,10 +8,24 @@ import Flights from './src/Flights';
 export default class App extends React.Component {
     constructor() {
         super();
+        this.state = {
+            price: true,
+            time: true
+        }
     }
 
-    sortBy() {
-        console.log('button')
+    sortByTime() {
+        this.setState({
+            price: false,
+            time: true
+        })
+    }
+
+    sortByPrice() {
+        this.setState({
+            price: true,
+            time: false
+        })
     }
 
     render() {
@@ -19,16 +33,16 @@ export default class App extends React.Component {
             <ScrollView>
                 <View style={styles.container}>
                     <Button
-                        onPress={this.sortBy}
+                        onPress={this.sortByPrice.bind(this)}
                         title="По стоимости"
                         color="#f13131"
                     />
                     <Button
-                        onPress={this.sortBy}
+                        onPress={this.sortByTime.bind(this)}
                         title="По времени"
                         color="#f13131"
                     />
-                    <Flights data={data}/>
+                    <Flights data={data} sort={this.state}/>
                 </View>
             </ScrollView>
         );
