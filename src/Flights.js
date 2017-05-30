@@ -12,9 +12,7 @@ export default class Flights extends React.Component {
 
         if(data) {
             // sort
-            data = _.sortBy(this.props.data, (item) => {
-                return item.price;
-            });
+            data = _.sortBy(this.props.data, ['price', 'dateTimeFrom']);
 
             flights = data.map((item, index) => {
                 timeFrom = new Date(item.dateTimeFrom);
