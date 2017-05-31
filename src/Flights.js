@@ -33,6 +33,7 @@ export default class Flights extends React.Component {
         let flights,
             timeFrom,
             timeTo,
+            month = ['Января', 'Февраля', 'Март', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
             data = dataFlight;
 
         if(data) {
@@ -54,8 +55,8 @@ export default class Flights extends React.Component {
                         <View style={styles.containerItem}>
                             <Text><Text style={styles.strong}>Откуда:</Text> {item.cityFrom}</Text>
                             <Text><Text style={styles.strong}>Куда:</Text> {item.cityTo}</Text>
-                            <Text><Text style={styles.strong}>Время отбытия:</Text> {timeFrom.getHours()}:{timeFrom.getMinutes()}:{timeFrom.getSeconds()}</Text>
-                            <Text><Text style={styles.strong}>Время прибытия:</Text> {timeTo.getHours()}:{timeTo.getMinutes()}:{timeTo.getSeconds()}</Text>
+                            <Text><Text style={styles.strong}>Время отбытия:</Text> {timeFrom.getDate()} {month[timeFrom.getMonth()]} {timeFrom.getHours()}:{timeFrom.getMinutes()}:{timeFrom.getSeconds()}</Text>
+                            <Text><Text style={styles.strong}>Время прибытия:</Text> {timeTo.getDate()} {month[timeTo.getMonth()]} {timeTo.getHours()}:{timeTo.getMinutes()}:{timeTo.getSeconds()}</Text>
                             <Text><Text style={styles.strong}>Цена билета:</Text> {item.price} руб.</Text>
                         </View>
                     </TouchableOpacity>
