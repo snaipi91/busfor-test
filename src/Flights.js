@@ -1,25 +1,48 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
+import dataFlight from '../data';
 
 import _ from 'lodash';
 
 export default class Flights extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            price: true,
+            time: true
+        }
+    }
+
+    sortByTime() {
+        this.setState({
+            price: false,
+            time: true
+        })
+    }
+
+    sortByPrice() {
+        this.setState({
+            price: true,
+            time: false
+        })
+    }
+
     render() {
         let flights,
             timeFrom,
             timeTo,
-            data = this.props.data;
+            data = dataFlight;
 
         if(data) {
-            console.log(this.props.sort);
-
             // sort change state
-            if(this.props.sort.time == false) {
-                data =  _.sortBy(this.props.data, ['price']);
-            } else if (this.props.sort.price == false) {
-                data =  _.sortBy(this.props.data, ['dateTimeFrom']);
+            if(this.state.time == false) {
+                data =  _.sortBy(data, ['price']);
+            } else if (this.state.price == false) {
+                data =  _.sortBy(data, ['dateTimeFrom']);
             } else {
-                data = _.sortBy(this.props.data, ['price', 'dateTimeFrom']);
+                data = _.sortBy(data, ['price', 'dateTimeFrom']);
             }
 
             flights = data.map((item, index) => {
@@ -27,31 +50,52 @@ export default class Flights extends React.Component {
                 timeTo = new Date(item.dateTimeTo);
 
                 return (
-                    <TouchableHighlight key={index}>
-                        <View style={styles.container}>
+                    <TouchableOpacity onPress={() => {Actions.page({item: item, num: index+1})}} key={_.uniqueId()}>
+                        <View style={styles.containerItem}>
                             <Text><Text style={styles.strong}>Откуда:</Text> {item.cityFrom}</Text>
                             <Text><Text style={styles.strong}>Куда:</Text> {item.cityTo}</Text>
                             <Text><Text style={styles.strong}>Время отбытия:</Text> {timeFrom.getHours()}:{timeFrom.getMinutes()}:{timeFrom.getSeconds()}</Text>
                             <Text><Text style={styles.strong}>Время прибытия:</Text> {timeTo.getHours()}:{timeTo.getMinutes()}:{timeTo.getSeconds()}</Text>
                             <Text><Text style={styles.strong}>Цена билета:</Text> {item.price} руб.</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 )
             })
         }
 
         return (
-            <View>
-                {flights}
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Button
+                        onPress={this.sortByPrice.bind(this)}
+                        title="По стоимости"
+                        color="#f13131"
+                    />
+                    <Button
+                        onPress={this.sortByTime.bind(this)}
+                        title="По времени"
+                        color="#f13131"
+                    />
+                    {flights}
+                </View>
+            </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        marginTop: 70,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    containerItem: {
         paddingTop: 20,
         paddingBottom: 20,
+        paddingHorizontal: 18,
         borderBottomColor: '#f19191',
         borderBottomWidth: 1
     },
