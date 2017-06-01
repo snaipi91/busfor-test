@@ -5,13 +5,15 @@ import { Router, Scene } from 'react-native-router-flux';
 import Flights from './src/Flights';
 import PageFlight from './src/PageFlight';
 
+import data from './data';
+
 export default class App extends React.Component {
     render() {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="main" component={Flights} title="Главная"/>
-                    <Scene key="page" component={PageFlight} title="Информация рейса"/>
+                    <Scene key="main" component={Flights} data={data} title="Главная"/>
+                    <Scene key="page" component={PageFlight} data={data} title="Информация рейса"/>
                 </Scene>
             </Router>
         );

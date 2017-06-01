@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Button, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import dataFlight from '../data';
-
 import Time from './Time';
 
 import _ from 'lodash';
@@ -12,38 +10,29 @@ class Flights extends React.Component {
     constructor() {
         super();
         this.state = {
-            price: true,
-            time: true
+            byKey: ['price', 'dateTimeFrom']
         }
     }
 
     sortByTime = () => {
         this.setState({
-            price: false,
-            time: true
+            byKey: ['dateTimeFrom']
         })
     };
 
     sortByPrice = () => {
         this.setState({
-            price: true,
-            time: false
+            byKey: ['price']
         })
     };
 
     render() {
         let flights,
-            data = dataFlight;
+            data;
 
-        if(data) {
+        if(this.props.data) {
             // sort change state
-            if(this.state.time == false) {
-                data =  _.sortBy(data, ['price']);
-            } else if (this.state.price == false) {
-                data =  _.sortBy(data, ['dateTimeFrom']);
-            } else {
-                data = _.sortBy(data, ['price', 'dateTimeFrom']);
-            }
+            data =  _.sortBy(this.props.data, this.state.byKey);
 
             flights = data.map((item, index) => {
 
@@ -52,8 +41,14 @@ class Flights extends React.Component {
                         <View style={styles.containerItem}>
                             <Text><Text style={styles.strong}>Откуда:</Text> {item.cityFrom}</Text>
                             <Text><Text style={styles.strong}>Куда:</Text> {item.cityTo}</Text>
-                            <Text><Text style={styles.strong}>Время отбытия:</Text><Time ms={item.dateTimeFrom}/></Text>
-                            <Text><Text style={styles.strong}>Время прибытия:</Text><Time ms={item.dateTimeTo}/></Text>
+                            <Text>
+                                <Text style={styles.strong}>Время отбытия:</Text>
+                                <Time ms={item.dateTimeFrom}/>
+                            </Text>
+                            <Text>
+                                <Text style={styles.strong}>Время прибытия:</Text>
+                                <Time ms={item.dateTimeTo}/>
+                            </Text>
                             <Text><Text style={styles.strong}>Цена билета:</Text> {item.price} руб.</Text>
                         </View>
                     </TouchableOpacity>
