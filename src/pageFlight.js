@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 const PageFlight = (item) => {
-    let month = ['Января', 'Февраля', 'Март', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
+    const month = ['Января', 'Февраля', 'Март', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
 
     // без рефакторинга
     return (

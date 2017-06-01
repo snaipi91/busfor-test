@@ -6,7 +6,7 @@ import dataFlight from '../data';
 
 import _ from 'lodash';
 
-export default class Flights extends React.Component {
+class Flights extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -15,19 +15,19 @@ export default class Flights extends React.Component {
         }
     }
 
-    sortByTime() {
+    sortByTime = () => {
         this.setState({
             price: false,
             time: true
         })
-    }
+    };
 
-    sortByPrice() {
+    sortByPrice = () => {
         this.setState({
             price: true,
             time: false
         })
-    }
+    };
 
     render() {
         let flights,
@@ -68,12 +68,12 @@ export default class Flights extends React.Component {
             <ScrollView>
                 <View style={styles.container}>
                     <Button
-                        onPress={this.sortByPrice.bind(this)}
+                        onPress={this.sortByPrice}
                         title="По стоимости"
                         color="#f13131"
                     />
                     <Button
-                        onPress={this.sortByTime.bind(this)}
+                        onPress={this.sortByTime}
                         title="По времени"
                         color="#f13131"
                     />
@@ -106,3 +106,5 @@ const styles = StyleSheet.create({
         fontWeight: "900"
     }
 });
+
+export default Flights;
